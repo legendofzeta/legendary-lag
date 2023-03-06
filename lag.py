@@ -3,13 +3,16 @@ import subprocess
 import time
 
 def disable_eth():
-    subprocess.run(["nmcli", "dev", "disconnect", "eth0"])
+    subprocess.run(["nmcli", "dev", "disconnect", "enp2s0f2"])
 
 def enable_eth():
-    subprocess.run(["nmcli", "dev", "connect", "eth0"])
+    subprocess.run(["nmcli", "dev", "connect", "enp2s0f2"])
 
 def freeze_eth():
     disable_eth()
+    countdown_label.config(text="8 seconds left")
+    window.update()
+    time.sleep(1)
     countdown_label.config(text="7 seconds left")
     window.update()
     time.sleep(1)
@@ -36,7 +39,7 @@ def freeze_eth():
 
 window = tk.Tk()
 window.geometry("250x150")
-window.title("Ethernet Connection")
+window.title("Legendary Lag")
 window.configure(bg="#2c3e50")
 
 freeze_button = tk.Button(window, text="Freeze", command=freeze_eth, bg="#e74c3c", fg="white")
@@ -49,4 +52,3 @@ countdown_label = tk.Label(window, text="", font=("Arial", 16), bg="#2c3e50", fg
 countdown_label.place(x=60, y=100)
 
 window.mainloop()
-
